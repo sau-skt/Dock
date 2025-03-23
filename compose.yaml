@@ -1,5 +1,6 @@
 services:
   img:
+    image: basic-app
     build: .
     container_name: basic-container_name
     ports:
