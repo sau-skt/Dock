@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dock-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dock-app
+  template:
+    metadata:
+      labels:
+        app: dock-app
+    spec:
+      containers:
+      - name: basic-app-container
+        image: sauskt/basic-app
+        ports:
+        - containerPort: 3000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: dock-service
+spec:
+  selector:
+    app: dock-app
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 3000
+  type: LoadBalancer
